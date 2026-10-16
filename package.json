@@ -1,0 +1,12 @@
+{
+  "name": "tradesource-playwright",
+  "version": "1.0.0",
+  "description": "regression tests against Tradesource",
+  "license": "ISC",
+  "author": "s greenwood",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
