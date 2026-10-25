@@ -4,24 +4,56 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+  workflow_dispatch:
 jobs:
   regression:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    # 1. This repo (the Playwright framework)
+    - name: Check out Playwright repo
+      uses: actions/checkout@v4
+
+    # 2. The test site, into a subfolder
+    - name: Check out test site
+      uses: actions/checkout@v4
+      with:
+        repository: samGreenwood2022/tradesource-site
+        ref: master
+        path: site
+
     - uses: actions/setup-node@v4
       with:
-        node-version: lts/*
+        node-version: 22
+        cache: npm
+
+    # 3. Start the site and wait until it answers. Uses 127.0.0.1 rather than
+    # localhost: on newer runners localhost can resolve to IPv6 (::1) first, and
+    # the connection fails. If the site doesn't start, its log is printed
+    - name: Start site
+      run: |
+        nohup npm start --prefix site > site.log 2>&1 &
+        if ! curl --silent --show-error --fail --retry 30 --retry-delay 1 --retry-all-errors --output /dev/null http://127.0.0.1:4321; then
+          echo "The site did not start. Its log:"
+          cat site.log
+          exit 1
+        fi
+        echo "Site is up"
+
+    # 4. Install deps and run the tests against the running site
     - name: Install dependencies
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Run Playwright tests
       run: npx playwright test
+      env:
+        # Overrides baseURL (localhost) in playwright.config.ts, for the same IPv6 reason as above
+        BASE_URL: http://127.0.0.1:4321
+
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
         name: playwright-report
         path: playwright-report/
-        retention-days: 1
+        retention-days: 14

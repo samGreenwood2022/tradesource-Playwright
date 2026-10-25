@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Vortix manufacturer page (unoptimised)', () => {
   test('navigate to vortix manufacturer homepage', async ({ page }) => {
-    await page.goto('http://localhost:4321');
+    await page.goto('/');
     const searchBox = page.getByRole('textbox', { name: 'Search products or manufacturers' });
 
     await expect(page).toHaveTitle('TradeSource');
@@ -16,7 +16,7 @@ test.describe('Vortix manufacturer page (unoptimised)', () => {
   });
 
   test('assert h1 header is correct', async ({ page }) => {
-    await page.goto('http://localhost:4321');
+    await page.goto('/');
     const searchBox = page.getByRole('textbox', { name: 'Search products or manufacturers' });
     const header = page.getByRole('heading', { level: 1 });
 
@@ -32,7 +32,7 @@ test.describe('Vortix manufacturer page (unoptimised)', () => {
   });
 
   test('assert h1 header paragraph is correct', async ({ page }) => {
-    await page.goto('http://localhost:4321');
+    await page.goto('/');
     const searchBox = page.getByRole('textbox', { name: 'Search products or manufacturers' });
     const headerParagraph = page.getByTestId('manufacturer-tagline');
 
@@ -48,7 +48,7 @@ test.describe('Vortix manufacturer page (unoptimised)', () => {
   });
 
   test('assert the telephone button is correct', async ({ page }) => {
-    await page.goto('http://localhost:4321');
+    await page.goto('/');
     const searchBox = page.getByRole('textbox', { name: 'Search products or manufacturers' });
     const telephoneButton = page.getByRole('link', { name: '08001234567' });
 
@@ -66,7 +66,7 @@ test.describe('Vortix manufacturer page (unoptimised)', () => {
   });
 
   test('assert the website link button is correct', async ({ page }) => {
-    await page.goto('http://localhost:4321');
+    await page.goto('/');
     const searchBox = page.getByRole('textbox', { name: 'Search products or manufacturers' });
     const websiteLinkButton = page.getByRole('link', { name: 'Website' });
 
@@ -84,7 +84,7 @@ test.describe('Vortix manufacturer page (unoptimised)', () => {
   });
 
   test('assert the contact manufacturer button is correct', async ({ page }) => {
-    await page.goto('http://localhost:4321');
+    await page.goto('/');
     const searchBox = page.getByRole('textbox', { name: 'Search products or manufacturers' });
     const contactManufacturerButton = page.getByRole('button', { name: 'Contact manufacturer' });
 
