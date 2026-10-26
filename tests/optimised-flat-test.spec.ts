@@ -1,6 +1,9 @@
+// tests/optimised-flat-test.spec.ts
 import { test, expect } from '@playwright/test';
 
-test.describe('Vortix manufacturer page', () => {
+// same checks as the first flat spec, with the duplicated navigation moved into beforeEach
+test.describe('Vortix manufacturer page (optimised)', () => {
+  // shared setup: navigate to the Vortix manufacturer page
   test.beforeEach('navigate to vortix manufacturer homepage', async ({ page }) => {
     await page.goto('/');
     const searchBox = page.getByRole('textbox', { name: 'Search products or manufacturers' });
