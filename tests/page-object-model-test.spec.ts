@@ -1,6 +1,10 @@
+// tests/page-object-model-test.spec.ts
 import { test, expect } from '../fixtures/test-options';
 
-test.describe('Vortix manufacturer page', () => {
+// same checks as the optimised flat spec, now using page objects via fixtures
+// locators and actions live in the pages/ folder, assertions stay here
+test.describe('Vortix manufacturer page (page object model)', () => {
+  // shared setup: navigate to the Vortix manufacturer page
   test.beforeEach('navigate to vortix manufacturer homepage', async ({ page, basePage, searchResultsPage, tradeSourceHomePage }) => {
     await basePage.navigateToHomepage();
     await basePage.acceptCookies();

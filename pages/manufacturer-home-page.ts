@@ -1,11 +1,12 @@
 // pages/manufacturer-home-page.ts
 import { Page, Locator } from '@playwright/test';
 import { BasePage } from './base-page';
- 
+
+// ManufacturerHomePage is the page object for a manufacturer's overview page (e.g. Vortix)
 export class ManufacturerHomePage extends BasePage {
   // ==========================================================================
   // LOCATORS
-  // exposed directly — a Playwright locator is lazy, so no getter methods are needed
+  // declared here as readonly properties, created from the page in the constructor
   // ==========================================================================
   readonly h1Header: Locator;
   readonly h1HeaderParagraph: Locator;
@@ -13,7 +14,7 @@ export class ManufacturerHomePage extends BasePage {
   readonly companyWebsiteLink: Locator;
   readonly contactManufacturerButton: Locator;
   readonly signInRequiredModal: Locator;
- 
+
   constructor(page: Page) {
     super(page);
     this.h1Header = page.getByRole('heading', { level: 1 });
@@ -23,12 +24,14 @@ export class ManufacturerHomePage extends BasePage {
     this.contactManufacturerButton = page.getByRole('button', { name: 'Contact manufacturer' });
     this.signInRequiredModal = page.getByRole('heading', { name: 'Sign in required' });
   }
- 
+
   // ==========================================================================
   // METHODS
-  // page-specific actions go here as they're needed
+  // reusable actions, using the locators above
   // assertions belong in the spec files
   // ==========================================================================
+
+  // click the Contact manufacturer button
   async clickContactManufacturer() {
     await this.contactManufacturerButton.click();
   }
