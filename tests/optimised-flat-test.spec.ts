@@ -15,18 +15,21 @@ test.describe('Vortix manufacturer page', () => {
     await expect(page).toHaveURL(/manufacturer\/vortix\/vtxA1B2C3D4E5F6G7H8\/overview/);
   });
 
+  // Test 01 - Assert h1 header is correct
   test('assert h1 header is correct', async ({ page }) => {
     const header = page.getByRole('heading', { level: 1 });
 
     await expect(header).toHaveText('Vortix');
   });
 
+  // Test 02 - Assert h1 header paragraph is correct
   test('assert h1 header paragraph is correct', async ({ page }) => {
     const headerParagraph = page.getByTestId('manufacturer-tagline');
 
     await expect(headerParagraph).toHaveText('Commercial cleaning equipment, built for daily use');
   });
 
+  // Test 03 - Assert the telephone button is correct
   test('assert the telephone button is correct', async ({ page }) => {
     const telephoneButton = page.getByRole('link', { name: '08001234567' });
 
@@ -35,14 +38,17 @@ test.describe('Vortix manufacturer page', () => {
     await expect(telephoneButton).toHaveAttribute('href', 'tel:08001234567');
   });
 
+  // Test 04 - Assert the website link button is correct
   test('assert the website link button is correct', async ({ page }) => {
     const websiteLinkButton = page.getByRole('link', { name: 'Website' });
 
     await expect(websiteLinkButton).toBeVisible();
     await expect(websiteLinkButton).toHaveText('Website');
     await expect(websiteLinkButton).toHaveAttribute('href', 'https://www.vortix-commercial.example/overview');
+    await expect(websiteLinkButton).toHaveAttribute('target', '_blank');
   });
 
+  // Test 05 - Assert the contact manufacturer button is correct
   test('assert the contact manufacturer button is correct', async ({ page }) => {
     const contactManufacturerButton = page.getByRole('button', { name: 'Contact manufacturer' });
 
