@@ -24,9 +24,14 @@ export class SignInPage extends BasePage {
   // assertions belong in the spec files
   // ==========================================================================
 
-  async signIn(email: string, password: string) {
-    await this.emailField.fill(email);
-    await this.passwordField.fill(password);
+  // sign in with the credentials from .env, failing early if they are missing
+  async signIn() {
+    const { EMAIL, PASSWORD } = process.env;
+    if (!EMAIL || !PASSWORD) {
+      throw new Error('EMAIL and PASSWORD must be set in .env');
+    }
+    await this.emailField.fill(EMAIL);
+    await this.passwordField.fill(PASSWORD);
     await this.signInButton.click();
   }
 }
