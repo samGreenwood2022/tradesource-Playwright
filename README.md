@@ -49,3 +49,15 @@ written with that in mind.
 - Install the Playwright browsers: npx playwright install
 - Start the TradeSource practice site in its own terminal: npm start (serves http://localhost:4321)
 - Run the tests: npm test (or npm run test:ui for UI Mode)
+
+## Running in CI
+
+Tests run automatically on GitHub Actions (`.github/workflows/playwright.yml`)
+on every push and pull request to `main`/`master`, and can be started manually.
+The workflow checks out this repo and the TradeSource site repo, starts the
+site, waits for it to respond, runs the tests and uploads the HTML report.
+
+CI sets `BASE_URL=http://127.0.0.1:4321`, which overrides the `localhost`
+default in `playwright.config.ts`. On the GitHub runners `localhost` can
+resolve to IPv6 (`::1`) first, which makes the connection to the site fail,
+so CI uses the IPv4 address instead. Locally you don't need to set anything.
