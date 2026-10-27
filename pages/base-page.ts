@@ -13,12 +13,14 @@ export class BasePage {
   readonly cookieAcceptButton: Locator;
   readonly closeDialogButton: Locator;
   readonly signInButton: Locator;
+  readonly openUsermenu: Locator;
 
   constructor(page: Page) {
     this.page = page;
     this.cookieAcceptButton = page.getByRole('button', { name: 'Accept all' });
     this.closeDialogButton = page.getByRole('button', { name: 'Close dialog' });
     this.signInButton = page.getByRole('button', { name: 'Sign in' });
+    this.openUsermenu = page.getByRole('button', { name: 'Open user menu' });
   }
 
   // ==========================================================================
@@ -45,5 +47,10 @@ export class BasePage {
   // click the sign-in button
   async clickSignIn() {
     await this.signInButton.click();
+  }
+
+  // click the open user menu button
+  async clickOpenUsermenu() {
+    await this.openUsermenu.click();
   }
 }

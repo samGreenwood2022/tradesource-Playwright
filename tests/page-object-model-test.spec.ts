@@ -54,6 +54,7 @@ test.describe('Vortix manufacturer page (page object model)', () => {
    await basePage.clickSignIn();
    await signInPage.signIn();
    await expect(page).toHaveURL(currentURLBeforeSignIn);
+   await expect(basePage.openUsermenu).toBeVisible();
   });
 
 });
