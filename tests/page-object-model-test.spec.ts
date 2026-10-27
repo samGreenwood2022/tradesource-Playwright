@@ -49,8 +49,9 @@ test.describe('Vortix manufacturer page (page object model)', () => {
   });
 
   // Test 06 - Assert the sign-in process works as expected
-  test('assert the sign-in process works as expected', async ({ basePage, manufacturerHomePage, signInPage, page }) => {
+  test('assert the sign-in process works as expected', async ({ basePage, signInPage, page }) => {
    const currentURLBeforeSignIn = page.url();
+   await basePage.clickSignIn();
    await signInPage.signIn();
    await expect(page).toHaveURL(currentURLBeforeSignIn);
   });

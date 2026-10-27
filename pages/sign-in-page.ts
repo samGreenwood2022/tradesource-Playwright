@@ -9,13 +9,16 @@ export class SignInPage extends BasePage {
   // ==========================================================================
   readonly emailField: Locator;
   readonly passwordField: Locator;
-  readonly signInButton: Locator;
+  readonly logInButton: Locator;
+  readonly nextButton: Locator;
 
   constructor(page: Page) {
     super(page);
-    this.emailField = page.getByTestId('email-input').filter({ visible: true });
-    this.passwordField = page.getByTestId('password-input').filter({ visible: true });
-    this.signInButton = page.getByTestId('sign-in-button').filter({ visible: true });
+    this.emailField = page.getByRole('textbox', { name: 'Email' });
+    this.nextButton = page.getByRole('button', { name: 'Next' });
+    this.passwordField = page.getByRole('textbox', { name: 'Password' });
+    this.logInButton = page.getByRole('button', { name: 'Sign in' });
+
   }
 
   // ==========================================================================
@@ -31,7 +34,8 @@ export class SignInPage extends BasePage {
       throw new Error('EMAIL and PASSWORD must be set in .env');
     }
     await this.emailField.fill(EMAIL);
+    await this.nextButton.click();
     await this.passwordField.fill(PASSWORD);
-    await this.signInButton.click();
+    await this.logInButton.click();
   }
 }
