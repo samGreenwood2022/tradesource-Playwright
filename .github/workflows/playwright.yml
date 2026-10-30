@@ -50,6 +50,8 @@ jobs:
       env:
         # Overrides baseURL (localhost) in playwright.config.ts, for the same IPv6 reason as above
         BASE_URL: http://127.0.0.1:4321
+        EMAIL: ${{ secrets.EMAIL }}
+        PASSWORD: ${{ secrets.PASSWORD }}
 
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
