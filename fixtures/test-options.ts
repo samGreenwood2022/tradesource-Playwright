@@ -4,6 +4,7 @@ import { SearchResultsPage } from '../pages/search-results-page';
 import { ManufacturerHomePage } from '../pages/manufacturer-home-page';
 import { BasePage } from '../pages/base-page';
 import { TradeSourceHomePage } from '../pages/tradesource-home-page';
+import { SignInPage } from '../pages/sign-in-page';
 
 // the types tell TypeScript what each fixture gives a test
 type Fixtures = {
@@ -11,6 +12,7 @@ type Fixtures = {
   manufacturerHomePage: ManufacturerHomePage;
   basePage: BasePage;
   tradeSourceHomePage: TradeSourceHomePage;
+  signInPage: SignInPage;
 };
 
 // specs import `test` and `expect` from this file instead of '@playwright/test'
@@ -30,6 +32,9 @@ export const test = base.extend<Fixtures>({
   },
   tradeSourceHomePage: async ({ page }, use) => {
     await use(new TradeSourceHomePage(page));
+  },
+  signInPage: async ({ page }, use) => {
+    await use(new SignInPage(page));
   },
 });
 
