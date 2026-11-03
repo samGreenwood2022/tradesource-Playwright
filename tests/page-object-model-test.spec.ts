@@ -4,11 +4,9 @@ import { test, expect } from '../fixtures/test-options';
 // same checks as the optimised flat spec, now using page objects via fixtures
 // locators and actions live in the pages/ folder, assertions stay here
 test.describe('Vortix manufacturer page (page object model)', () => {
-  // shared setup: navigate to the Vortix manufacturer page
+  // shared setup: navigate to the Vortix manufacturer page (popups are handled by the fixtures)
   test.beforeEach('navigate to vortix manufacturer homepage', async ({ page, basePage, searchResultsPage, tradeSourceHomePage }) => {
     await basePage.navigateToHomepage();
-    await basePage.acceptCookies();
-    await basePage.closeDialog();
     await tradeSourceHomePage.searchFor('Vortix');
     await searchResultsPage.clickManufacturerTab();
     await searchResultsPage.clickTile();

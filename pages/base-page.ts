@@ -10,15 +10,11 @@ export class BasePage {
   // LOCATORS
   // declared here as readonly properties, created from the page in the constructor
   // ==========================================================================
-  readonly cookieAcceptButton: Locator;
-  readonly closeDialogButton: Locator;
   readonly signInButton: Locator;
   readonly openUsermenu: Locator;
 
   constructor(page: Page) {
     this.page = page;
-    this.cookieAcceptButton = page.getByRole('button', { name: 'Accept all' });
-    this.closeDialogButton = page.getByRole('button', { name: 'Close dialog' });
     this.signInButton = page.getByRole('button', { name: 'Sign in' });
     this.openUsermenu = page.getByRole('button', { name: 'Open user menu' });
   }
@@ -32,16 +28,6 @@ export class BasePage {
   // navigate to the TradeSource homepage
   async navigateToHomepage() {
     await this.page.goto('/');
-  }
-
-  // accept the cookie banner (replaced by the acceptCookies fixture in Session 6)
-  async acceptCookies() {
-    await this.cookieAcceptButton.click();
-  }
-
-  // close the dialog if it appears
-  async closeDialog() {
-    await this.closeDialogButton.click();
   }
 
   // click the sign-in button
