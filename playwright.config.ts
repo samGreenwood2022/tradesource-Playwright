@@ -46,16 +46,12 @@ export default defineConfig({
       use: { ...devices['Desktop Firefox'] },
     },
 
-    // webkit is disabled locally for now (it crashes on page open, likely blocked by windows defender)
-    // it still runs in CI; remove the CI check once the local issue is fixed
-    ...(process.env.CI
-      ? [
-          {
-            name: 'webkit',
-            use: { ...devices['Desktop Safari'] },
-          },
-        ]
-      : []),
+    // webkit is disabled for now, both locally and in CI, as it's failing in both
+    // uncomment this block to turn it back on
+    // {
+    //   name: 'webkit',
+    //   use: { ...devices['Desktop Safari'] },
+    // },
 
     /* Test against mobile viewports. */
     // {

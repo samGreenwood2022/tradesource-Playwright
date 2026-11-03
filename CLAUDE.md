@@ -11,7 +11,7 @@ Add to this file as the course progresses.
 ## Current state
 - Playwright (`@playwright/test`) installed, TypeScript via `tsconfig.json`.
 - `playwright.config.ts`: `testDir: ./tests`, `baseURL: http://localhost:4321`, HTML reporter, chromium/firefox/webkit projects.
-- WebKit is temporarily disabled for local runs (only added when `CI` is set). Locally it crashes on `newPage` ("Target page, context or browser has been closed"), suspected Windows Defender. Remove the `process.env.CI` check once that's resolved.
+- WebKit is temporarily disabled everywhere (project commented out in `playwright.config.ts`). Locally it crashes on `newPage` ("Target page, context or browser has been closed"), suspected Windows Defender, and it was also failing in CI. Uncomment the project once both are resolved.
 - App under test runs locally at `http://localhost:4321` (must be started separately; no `webServer` config yet).
 - `baseURL` can be overridden with the `BASE_URL` env var (`process.env.BASE_URL ?? 'http://localhost:4321'`). CI (`.github/workflows/playwright.yml`) sets it to `http://127.0.0.1:4321` because `localhost` can resolve to IPv6 (`::1`) first on the GitHub runners and the connection fails.
 - Latest completed stage: 3 (Page Object Model). Next stage: not yet confirmed, check the course document.
