@@ -11,10 +11,12 @@ Add to this file as the course progresses.
 ## Current state
 - Playwright (`@playwright/test`) installed, TypeScript via `tsconfig.json`.
 - `playwright.config.ts`: `testDir: ./tests`, `baseURL: http://localhost:4321`, HTML reporter, chromium/firefox/webkit projects.
+- WebKit is temporarily disabled everywhere (project commented out in `playwright.config.ts`). Locally it crashes on `newPage` ("Target page, context or browser has been closed"), suspected Windows Defender, and it was also failing in CI. Uncomment the project once both are resolved.
 - App under test runs locally at `http://localhost:4321` (must be started separately; no `webServer` config yet).
 - `baseURL` can be overridden with the `BASE_URL` env var (`process.env.BASE_URL ?? 'http://localhost:4321'`). CI (`.github/workflows/playwright.yml`) sets it to `http://127.0.0.1:4321` because `localhost` can resolve to IPv6 (`::1`) first on the GitHub runners and the connection fails.
 - Latest completed stage: 3 (Page Object Model). Next stage: not yet confirmed, check the course document.
 - The default `tests/example.spec.ts` was removed in stage 3.
+- Popups (cookie banner, "Discover TradeSource Insights" dialog) are dismissed by the `acceptCookies` and `closeDialog` auto fixtures in `fixtures/test-options.ts` (`page.addLocatorHandler`), added in course Session 6. Specs must not click these popups themselves, or the handler and the spec race for the same button. The close handler is scoped to that dialog because the "Sign in required" modal also has a "Close dialog" button.
 
 ## Course log
 A running record of each stage. Append a new entry when a stage is completed; don't overwrite earlier ones.
