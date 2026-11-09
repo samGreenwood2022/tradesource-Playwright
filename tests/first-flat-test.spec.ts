@@ -9,8 +9,8 @@ test.describe('Vortix manufacturer page (unoptimised)', () => {
     const searchBox = page.getByRole('textbox', { name: 'Search products or manufacturers' });
 
     await expect(page).toHaveTitle('TradeSource');
-    await page.getByRole('button', { name: 'Accept all' }).click();
-    await page.getByRole('button', { name: 'Close dialog' }).click();
+    // await page.getByRole('button', { name: 'Accept all' }).click();
+    // await page.getByRole('button', { name: 'Close dialog' }).click();
     await searchBox.fill('Vortix');
     await searchBox.press('Enter');
     await page.getByRole('tab', { name: 'Manufacturer' }).click();

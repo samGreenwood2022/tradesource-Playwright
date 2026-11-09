@@ -36,21 +36,28 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
+    // signs in once (or reuses the saved session) before the browser projects run
+    { name: 'setup', testMatch: /.*\.setup\.ts/ },
+
+    // browser projects start signed in, using the session saved by the setup project
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { ...devices['Desktop Chrome'], storageState: 'playwright/.auth/user.json' },
+      dependencies: ['setup'],
     },
 
     {
       name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      use: { ...devices['Desktop Firefox'], storageState: 'playwright/.auth/user.json' },
+      dependencies: ['setup'],
     },
 
     // webkit is disabled for now, both locally and in CI, as it's failing in both
     // uncomment this block to turn it back on
     // {
     //   name: 'webkit',
-    //   use: { ...devices['Desktop Safari'] },
+    //   use: { ...devices['Desktop Safari'], storageState: 'playwright/.auth/user.json' },
+    //   dependencies: ['setup'],
     // },
 
     /* Test against mobile viewports. */
