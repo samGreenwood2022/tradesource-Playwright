@@ -14,6 +14,8 @@ Add to this file as the course progresses.
 - WebKit is temporarily disabled everywhere (project commented out in `playwright.config.ts`). Locally it crashes on `newPage` ("Target page, context or browser has been closed"), suspected Windows Defender, and it was also failing in CI. Uncomment the project once both are resolved.
 - App under test runs locally at `http://localhost:4321` (must be started separately; no `webServer` config yet).
 - `baseURL` can be overridden with the `BASE_URL` env var (`process.env.BASE_URL ?? 'http://localhost:4321'`). CI (`.github/workflows/playwright.yml`) sets it to `http://127.0.0.1:4321` because `localhost` can resolve to IPv6 (`::1`) first on the GitHub runners and the connection fails.
+- Sign-in is shared via a setup project (`tests/auth.setup.ts`, project `setup`). chromium/firefox depend on it and load `playwright/.auth/user.json` (gitignored) as `storageState`. The setup reuses the saved session if the "Open user menu" button shows, otherwise signs in through `SignInPage.signIn()` and rewrites the file. The app stores sign-in in localStorage, not cookies.
+- Tests run signed in by default. Signed-out tests (05/06 in `page-object-model-test.spec.ts`) sit in their own `describe('signed out')`.
 - Latest completed stage: 3 (Page Object Model). Next stage: not yet confirmed, check the course document.
 - The default `tests/example.spec.ts` was removed in stage 3.
 - Popups (cookie banner, "Discover TradeSource Insights" dialog) are dismissed by the `acceptCookies` and `closeDialog` auto fixtures in `fixtures/test-options.ts` (`page.addLocatorHandler`), added in course Session 6. Specs must not click these popups themselves, or the handler and the spec race for the same button. The close handler is scoped to that dialog because the "Sign in required" modal also has a "Close dialog" button.
@@ -50,10 +52,14 @@ pages/
   base-page.ts
   manufacturer-home-page.ts
   search-results-page.ts
+  sign-in-page.ts
   tradesource-home-page.ts
 fixtures/
   test-options.ts
+playwright/.auth/
+  user.json          (saved sign-in session, gitignored)
 tests/
+  auth.setup.ts
   first-flat-test.spec.ts
   optimised-flat-test.spec.ts
   page-object-model-test.spec.ts
@@ -63,5 +69,6 @@ tests/
 - Prefer user-facing locators (`getByRole`, then `getByTestId`).
 - Use web-first assertions (`await expect(locator)...`, `await expect(page).toHaveURL/toHaveTitle`) rather than reading values and asserting on them.
 - Shared setup goes in `test.beforeEach`.
+- Tests that need a signed-out user opt out of the saved session in their own `describe` (`test.use({ storageState: { cookies: [], origins: [] } })`).
 - Page objects extend `BasePage`, expose locators as `readonly` properties, and contain actions only. Assertions go in the spec files.
 - Comments: lowercase, one per method, a `// path/to/file.ts` header on every file, and the standard LOCATORS / METHODS banners in page objects.
