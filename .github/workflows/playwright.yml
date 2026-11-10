@@ -74,3 +74,10 @@ jobs:
         name: playwright-report
         path: playwright-report/
         retention-days: 14
+
+    - uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: accessibility-report
+        path: accessibility-report/
+        retention-days: 14
