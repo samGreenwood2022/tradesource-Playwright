@@ -1,7 +1,6 @@
 // tests/page-object-model-test.spec.ts
 import { test, expect } from '../fixtures/test-options';
-import AxeBuilder from '@axe-core/playwright';
-import { createHtmlReport } from 'axe-html-reporter';
+import { runAccessibilityScan } from '../utils/accessibility';
 
 // same checks as the optimised flat spec, now using page objects via fixtures
 // locators and actions live in the pages/ folder, assertions stay here
@@ -75,30 +74,7 @@ test.describe('Vortix manufacturer page (page object model)', () => {
     // Test 07 - Scan the Vortix page for accessibility violations and report them
     // violations are expected on this training site, so they are reported rather than failing the test
     test('scan the Vortix page for accessibility violations', async ({ page }, testInfo) => {
-      const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']).analyze();
-      await testInfo.attach('accessibility-scan-results', {
-        body: JSON.stringify(results, null, 2),
-        contentType: 'application/json',
-      });
-
-      // readable html version of the scan, saved to accessibility-report/ and attached to the playwright report
-      const htmlReport = createHtmlReport({
-        results,
-        options: {
-          projectKey: 'Vortix manufacturer page',
-          outputDir: 'accessibility-report',
-          reportFileName: `vortix-${testInfo.project.name}.html`,
-        },
-      });
-      await testInfo.attach('accessibility-report', { body: htmlReport, contentType: 'text/html' });
-
-      // list each violation as an annotation so it shows on the test in the playwright report
-      for (const violation of results.violations) {
-        testInfo.annotations.push({
-          type: `accessibility violation (${violation.impact})`,
-          description: `${violation.id}: ${violation.help} (${violation.nodes.length} element(s))`,
-        });
-      }
+      const results = await runAccessibilityScan(page, testInfo, 'vortix');
 
       // check the scan actually ran against the page
       expect(results.passes.length).toBeGreaterThan(0);
