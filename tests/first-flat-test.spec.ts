@@ -25,8 +25,8 @@ test.describe('Vortix manufacturer page (unoptimised)', () => {
     const header = page.getByRole('heading', { level: 1 });
 
     await expect(page).toHaveTitle('TradeSource');
-    await page.getByRole('button', { name: 'Accept all' }).click();
-    await page.getByRole('button', { name: 'Close dialog' }).click();
+    // await page.getByRole('button', { name: 'Accept all' }).click();
+    // await page.getByRole('button', { name: 'Close dialog' }).click();
     await searchBox.fill('Vortix');
     await searchBox.press('Enter');
     await page.getByRole('tab', { name: 'Manufacturer' }).click();
@@ -42,8 +42,8 @@ test.describe('Vortix manufacturer page (unoptimised)', () => {
     const headerParagraph = page.getByTestId('manufacturer-tagline');
 
     await expect(page).toHaveTitle('TradeSource');
-    await page.getByRole('button', { name: 'Accept all' }).click();
-    await page.getByRole('button', { name: 'Close dialog' }).click();
+    // await page.getByRole('button', { name: 'Accept all' }).click();
+    // await page.getByRole('button', { name: 'Close dialog' }).click();
     await searchBox.fill('Vortix');
     await searchBox.press('Enter');
     await page.getByRole('tab', { name: 'Manufacturer' }).click();
@@ -59,8 +59,8 @@ test.describe('Vortix manufacturer page (unoptimised)', () => {
     const telephoneButton = page.getByRole('link', { name: '08001234567' });
 
     await expect(page).toHaveTitle('TradeSource');
-    await page.getByRole('button', { name: 'Accept all' }).click();
-    await page.getByRole('button', { name: 'Close dialog' }).click();
+    // await page.getByRole('button', { name: 'Accept all' }).click();
+    // await page.getByRole('button', { name: 'Close dialog' }).click();
     await searchBox.fill('Vortix');
     await searchBox.press('Enter');
     await page.getByRole('tab', { name: 'Manufacturer' }).click();
@@ -78,8 +78,8 @@ test.describe('Vortix manufacturer page (unoptimised)', () => {
     const websiteLinkButton = page.getByRole('link', { name: 'Website' });
 
     await expect(page).toHaveTitle('TradeSource');
-    await page.getByRole('button', { name: 'Accept all' }).click();
-    await page.getByRole('button', { name: 'Close dialog' }).click();
+    // await page.getByRole('button', { name: 'Accept all' }).click();
+    // await page.getByRole('button', { name: 'Close dialog' }).click();
     await searchBox.fill('Vortix');
     await searchBox.press('Enter');
     await page.getByRole('tab', { name: 'Manufacturer' }).click();
@@ -97,8 +97,8 @@ test.describe('Vortix manufacturer page (unoptimised)', () => {
     const contactManufacturerButton = page.getByRole('button', { name: 'Contact manufacturer' });
 
     await expect(page).toHaveTitle('TradeSource');
-    await page.getByRole('button', { name: 'Accept all' }).click();
-    await page.getByRole('button', { name: 'Close dialog' }).click();
+    // await page.getByRole('button', { name: 'Accept all' }).click();
+    // await page.getByRole('button', { name: 'Close dialog' }).click();
     await searchBox.fill('Vortix');
     await searchBox.press('Enter');
     await page.getByRole('tab', { name: 'Manufacturer' }).click();
