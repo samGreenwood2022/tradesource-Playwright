@@ -17,6 +17,7 @@ Add to this file as the course progresses.
 - Sign-in is shared via a setup project (`tests/auth.setup.ts`, project `setup`). chromium/firefox depend on it and load `playwright/.auth/user.json` (gitignored) as `storageState`. The setup reuses the saved session if the "Open user menu" button shows, otherwise signs in through `SignInPage.signIn()` and rewrites the file. The app stores sign-in in localStorage, not cookies.
 - Tests run signed in by default. Signed-out tests (05/06 in `page-object-model-test.spec.ts`) sit in their own `describe('signed out')`.
 - Accessibility: `utils/accessibility.ts` exports `runAccessibilityScan(page, testInfo, reportName)`, which runs the axe scan, attaches the JSON and HTML reports, saves the HTML and adds violation annotations. Specs call it and keep their own assertions. `@axe-core/playwright` scans the Vortix page (signed out) in `page-object-model-test.spec.ts` against WCAG 2.0, 2.1 and 2.2 A/AA tags. Violations are expected (training site, not being fixed), so the test does not fail on them: it reports them as annotations plus the HTML report, and only asserts the scan ran. CI uploads `accessibility-report/` as its own artifact. Known violation: the locale button shows "UK" but its aria-label is "Choose location and language" (`label-content-name-mismatch`, WCAG 2.5.3). `axe-html-reporter` turns the results into a readable HTML report, attached to the Playwright report as `accessibility-report` and saved to `accessibility-report/vortix-<project>.html` (gitignored).
+- Visual regression: `tests/visual-regression.spec.ts` uses built-in `toHaveScreenshot()` (full page, Vortix overview). Config sets `snapshotPathTemplate: '{testDir}/visual-baselines/{platform}/{projectName}/{arg}-baseline{ext}'`, `updateSnapshots: 'missing'`, and screenshot defaults `animations: 'disabled'`, `maxDiffPixelRatio: 0.001`. Only Linux baselines are committed (`.gitignore` ignores `*.png` except `tests/visual-baselines/linux/**`). CI uploads `linux-visual-baselines` every run and `visual-diffs` on failure. Before screenshots, call `BasePage.disablePopups()` (sets the site's `tradesource_overlays=off` cookie via an init script, before navigating) and `BasePage.loadLazyImages()`. Note: 0.001 of a full page is ~1,600 px, so a text colour change on a heading passes; a background change fails. README documents regenerating and committing baselines.
 - Latest completed stage: 3 (Page Object Model). Next stage: not yet confirmed, check the course document.
 - The default `tests/example.spec.ts` was removed in stage 3.
 - Popups (cookie banner, "Discover TradeSource Insights" dialog) are dismissed by the `acceptCookies` and `closeDialog` auto fixtures in `fixtures/test-options.ts` (`page.addLocatorHandler`), added in course Session 6. Specs must not click these popups themselves, or the handler and the spec race for the same button. The close handler is scoped to that dialog because the "Sign in required" modal also has a "Close dialog" button.
@@ -66,6 +67,8 @@ tests/
   first-flat-test.spec.ts
   optimised-flat-test.spec.ts
   page-object-model-test.spec.ts
+  visual-regression.spec.ts
+  visual-baselines/<platform>/<project>/   (only linux/ committed)
 ```
 
 ## Conventions

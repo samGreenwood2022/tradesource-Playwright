@@ -61,3 +61,71 @@ CI sets `BASE_URL=http://127.0.0.1:4321`, which overrides the `localhost`
 default in `playwright.config.ts`. On the GitHub runners `localhost` can
 resolve to IPv6 (`::1`) first, which makes the connection to the site fail,
 so CI uses the IPv4 address instead. Locally you don't need to set anything.
+
+## Visual regression tests
+
+`tests/visual-regression.spec.ts` takes a full-page screenshot of the Vortix
+manufacturer homepage with Playwright's built-in `toHaveScreenshot()` and
+compares it with a saved baseline image.
+
+Before the screenshot the test:
+
+- switches off the cookie banner and "Discover TradeSource Insights" popup
+  (`disablePopups()` sets the site's `tradesource_overlays=off` cookie before
+  the page loads), as they appear at a random moment
+- scrolls down the page one screen at a time and back to the top, then waits
+  for every image to finish loading (`loadLazyImages()`), so lazy-loaded
+  images are in the shot
+
+Animations are disabled and up to 0.1% of pixels may differ
+(`maxDiffPixelRatio: 0.001`), both set in `playwright.config.ts`.
+
+### Where the baselines live
+
+Screenshots differ slightly between operating systems and browsers (fonts,
+anti-aliasing), so there is one baseline per OS and per browser project:
+
+```
+tests/visual-baselines/<platform>/<project>/<name>-baseline.png
+e.g. tests/visual-baselines/linux/chromium/vortix-overview-baseline.png
+```
+
+Only the **Linux** baselines are committed, because those are what CI
+compares against. Local Windows/macOS baselines are ignored by `.gitignore`
+and just live on your machine.
+
+Missing baselines are created automatically (`updateSnapshots: 'missing'`),
+locally and on CI. The first run writes them, every later run compares.
+
+### Regenerating baselines
+
+When a page changes on purpose, rewrite its baselines:
+
+```
+npx playwright test tests/visual-regression.spec.ts --update-snapshots
+```
+
+Or delete the baseline file and run the tests again.
+
+### Committing the Linux baselines
+
+1. Push your branch. The first CI run creates the Linux baselines.
+2. Open the workflow run on GitHub and download the `linux-visual-baselines`
+   artifact.
+3. Unzip it into `tests/visual-baselines/linux/` (so you end up with
+   `tests/visual-baselines/linux/chromium/...` and `.../firefox/...`).
+4. Commit and push them. From then on CI compares against them.
+
+To refresh the Linux baselines after a deliberate change, delete the old files
+in `tests/visual-baselines/linux/`, push, and repeat the steps above.
+
+### When a visual test fails
+
+Playwright saves three images in `test-results/`:
+
+- `-expected`: the baseline
+- `-actual`: what the page looks like now
+- `-diff`: the differences highlighted in red
+
+They are also shown in the HTML report (`npm run report`). On CI they are
+uploaded as the `visual-diffs` artifact.
