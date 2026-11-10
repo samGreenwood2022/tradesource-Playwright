@@ -31,6 +31,11 @@ export class ManufacturerHomePage extends BasePage {
   // assertions belong in the spec files
   // ==========================================================================
 
+  // go straight to the Vortix overview page, skipping the search
+  async navigateToVortixOverview() {
+    await this.page.goto('/en/gb/manufacturer/vortix/vtxA1B2C3D4E5F6G7H8/overview');
+  }
+
   // click the Contact manufacturer button
   async clickContactManufacturer() {
     await this.contactManufacturerButton.click();

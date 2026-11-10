@@ -14,6 +14,17 @@ dotenv.config({ path: path.resolve(__dirname, '.env'), quiet: true });
  */
 export default defineConfig({
   testDir: './tests',
+  /* Visual regression baselines: one per OS and per browser project, e.g. tests/visual-baselines/linux/chromium/vortix-overview-baseline.png */
+  snapshotPathTemplate: '{testDir}/visual-baselines/{platform}/{projectName}/{arg}-baseline{ext}',
+  /* Write any missing baseline automatically (locally and on CI); existing baselines are only compared, never overwritten */
+  updateSnapshots: 'missing',
+  /* Defaults for toHaveScreenshot: freeze animations and allow a tiny amount of pixel noise */
+  expect: {
+    toHaveScreenshot: {
+      animations: 'disabled',
+      maxDiffPixelRatio: 0.001,
+    },
+  },
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */

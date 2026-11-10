@@ -8,3 +8,7 @@ node_modules/
 /accessibility-report/
 /playwright/.cache/
 /playwright/.auth/
+
+# Visual regression: ignore all screenshots except the Linux baselines (the ones CI compares against)
+*.png
+!tests/visual-baselines/linux/**/*.png
