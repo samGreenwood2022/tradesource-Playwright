@@ -12,3 +12,4 @@ node_modules/
 # Visual regression: ignore all screenshots except the Linux baselines (the ones CI compares against)
 *.png
 !tests/visual-baselines/linux/**/*.png
+.features-gen/

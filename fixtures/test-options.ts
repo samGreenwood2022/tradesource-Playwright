@@ -1,5 +1,6 @@
 // fixtures/test-options.ts
-import { test as base } from '@playwright/test';
+// base test comes from playwright-bdd (it extends Playwright's test) so createBdd() can use these fixtures
+import { test as base } from 'playwright-bdd';
 import { SearchResultsPage } from '../pages/search-results-page';
 import { ManufacturerHomePage } from '../pages/manufacturer-home-page';
 import { BasePage } from '../pages/base-page';

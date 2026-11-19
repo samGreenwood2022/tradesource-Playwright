@@ -1,6 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
 
-
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -8,6 +7,14 @@ import { defineConfig, devices } from '@playwright/test';
 import dotenv from 'dotenv';
 import path from 'path';
 dotenv.config({ path: path.resolve(__dirname, '.env'), quiet: true });
+
+import { defineBddConfig } from 'playwright-bdd';
+
+// generates playwright specs from the feature files into .features-gen/
+const bddTestDir = defineBddConfig({
+  features: 'features/**/*.feature',
+  steps: ['steps/**/*.ts', 'fixtures/test-options.ts'], // include the file that defines your custom test
+});
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -59,6 +66,19 @@ export default defineConfig({
 
     {
       name: 'firefox',
+      use: { ...devices['Desktop Firefox'], storageState: 'playwright/.auth/user.json' },
+      dependencies: ['setup'],
+    },
+
+    {
+      name: 'chromium-bdd',
+      testDir: bddTestDir,
+      use: { ...devices['Desktop Chrome'], storageState: 'playwright/.auth/user.json' },
+      dependencies: ['setup'],
+    },
+    {
+      name: 'firefox-bdd',
+      testDir: bddTestDir,
       use: { ...devices['Desktop Firefox'], storageState: 'playwright/.auth/user.json' },
       dependencies: ['setup'],
     },

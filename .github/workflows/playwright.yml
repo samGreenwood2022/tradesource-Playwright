@@ -61,7 +61,7 @@ jobs:
       if: steps.playwright-cache.outputs.cache-hit == 'true'
       run: npx playwright install-deps
     - name: Run Playwright tests
-      run: npx playwright test
+      run: npx bddgen && npx playwright test
       env:
         # Overrides baseURL (localhost) in playwright.config.ts, for the same IPv6 reason as above
         BASE_URL: http://127.0.0.1:4321
