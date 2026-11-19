@@ -9,3 +9,8 @@ Feature: Vortix manufacturer page
 
   Scenario: tagline is correct
     Then the tagline should be "Commercial cleaning equipment, built for daily use"
+
+  Scenario: assert the telephone button is correct
+    Then the telephone button should be visible
+    And the telephone button should have the correct number
+    And the telephone button should have the correct link

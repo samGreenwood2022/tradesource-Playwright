@@ -22,3 +22,18 @@ Then('the h1 header should be {string}', async ({ manufacturerHomePage }, text: 
 Then('the tagline should be {string}', async ({ manufacturerHomePage }, text: string) => {
   await expect(manufacturerHomePage.h1HeaderParagraph).toHaveText(text);
 });
+
+// check the telephone button visibility
+Then('the telephone button should be visible', async ({ manufacturerHomePage }) => {
+  await expect(manufacturerHomePage.telephoneButton).toBeVisible();
+});
+
+// check the telephone button number
+Then('the telephone button should have the correct number', async ({ manufacturerHomePage }, number: string) => {
+  await expect(manufacturerHomePage.telephoneButton).toHaveText(number);
+});
+
+// check the telephone button link
+Then('the telephone button should have the correct link', async ({ manufacturerHomePage }, link: string) => {
+  await expect(manufacturerHomePage.telephoneButton).toHaveAttribute('href', link);
+});
