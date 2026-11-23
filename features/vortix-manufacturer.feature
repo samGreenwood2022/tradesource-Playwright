@@ -14,3 +14,9 @@ Feature: Vortix manufacturer page
     Then the telephone button should be visible
     And the telephone button should have the correct number
     And the telephone button should have the correct link
+
+  Scenario: assert the website link button is correct
+    Then the website link button should be visible
+    And the website link button should have the correct link
+    And the website link button should have the correct text
+    And the website link button should open the website in a new tab
