@@ -1,6 +1,7 @@
 // steps/vortix-manufacturer.steps.ts
 import { createBdd } from 'playwright-bdd';
 import { test, expect } from '../fixtures/test-options';
+import { runAccessibilityScan } from '../utils/accessibility';
 
 const { Given, Then } = createBdd(test);
 
@@ -90,4 +91,12 @@ Then('i click sign in and follow the sign in process', async ({ manufacturerHome
 // check the sign in process result
 Then('I should be signed in successfully', async ({ manufacturerHomePage }) => {
   await expect(manufacturerHomePage.signInRequiredModal).toBeHidden();
+});
+
+// check the page for accessibility violations
+Then('the page should have no accessibility violations', async ({ page, $testInfo }) => {
+  const results = await runAccessibilityScan(page, $testInfo, 'vortix');
+
+  // check the scan actually ran against the page
+  expect(results.passes.length).toBeGreaterThan(0);
 });

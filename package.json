@@ -9,6 +9,7 @@
   "scripts": {
     "test": "npx bddgen && playwright test",
     "test:ui": "npx bddgen && playwright test --ui",
+    "test:debug": "npx bddgen && playwright test --debug --project=chromium",
     "bddgen": "bddgen",
     "report": "playwright show-report",
     "codeGen": "playwright codegen http://localhost:4321"

@@ -35,3 +35,9 @@ Feature: Vortix manufacturer page
   Scenario: assert the sign-in process works as expected
     When i click sign in and follow the sign in process
     Then I should be signed in successfully
+
+  @signed-out
+  Scenario: scan the manufacturer page for accessibility violations
+    Then the page should have no accessibility violations
+
+  

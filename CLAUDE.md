@@ -43,6 +43,7 @@ CI (GitHub Actions) was added alongside the early flat specs (commit `0b92c3e`);
 ## Commands
 - `npm test`: run all tests (`playwright test`)
 - `npm run test:ui`: run in UI mode
+- `npm run test:debug`: run headed in chromium with the Playwright Inspector (`--debug`). Narrow it with e.g. `npm run test:debug -- -g "accessibility"`
 - `npm run report`: open the HTML report
 - `npm run codeGen`: launch codegen against `http://localhost:4321`
 
