@@ -77,3 +77,17 @@ Then('clicking the contact manufacturer button will open the sign in modal', asy
   await manufacturerHomePage.contactManufacturerButton.click();
   await expect(manufacturerHomePage.signInRequiredModal).toBeVisible();
 }); 
+
+// check the sign in process
+Then('i click sign in and follow the sign in process', async ({ manufacturerHomePage, page, signInPage }) => {
+  const currentURLBeforeSignIn = page.url();
+
+  await manufacturerHomePage.signInButton.click();
+  await signInPage.signIn();
+  await expect(page).toHaveURL(currentURLBeforeSignIn);
+});
+
+// check the sign in process result
+Then('I should be signed in successfully', async ({ manufacturerHomePage }) => {
+  await expect(manufacturerHomePage.signInRequiredModal).toBeHidden();
+});

@@ -30,3 +30,8 @@ Feature: Vortix manufacturer page
     Then the contact manufacturer button should be visible
     And the contact manufacturer button should have the correct text " Contact manufacturer "
     And clicking the contact manufacturer button will open the sign in modal
+
+  @signed-out
+  Scenario: assert the sign-in process works as expected
+    When i click sign in and follow the sign in process
+    Then I should be signed in successfully
