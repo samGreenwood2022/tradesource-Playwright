@@ -12,11 +12,11 @@ Feature: Vortix manufacturer page
 
   Scenario: assert the telephone button is correct
     Then the telephone button should be visible
-    And the telephone button should have the correct number
-    And the telephone button should have the correct link
+    And the telephone button should have the correct number "08001234567"
+    And the telephone button should have the correct link "tel:08001234567"
 
   Scenario: assert the website link button is correct
     Then the website link button should be visible
-    And the website link button should have the correct link
-    And the website link button should have the correct text
+    And the website link button should have the correct link "https://www.vortix-commercial.example/overview"
+    And the website link button should have the correct text " Website "
     And the website link button should open the website in a new tab

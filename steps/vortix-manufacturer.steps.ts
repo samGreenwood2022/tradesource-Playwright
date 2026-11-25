@@ -29,12 +29,12 @@ Then('the telephone button should be visible', async ({ manufacturerHomePage }) 
 });
 
 // check the telephone button number
-Then('the telephone button should have the correct number', async ({ manufacturerHomePage }, number: string) => {
+Then('the telephone button should have the correct number {string}', async ({ manufacturerHomePage }, number: string) => {
   await expect(manufacturerHomePage.telephoneButton).toHaveText(number);
 });
 
 // check the telephone button link
-Then('the telephone button should have the correct link', async ({ manufacturerHomePage }, link: string) => {
+Then('the telephone button should have the correct link {string}', async ({ manufacturerHomePage }, link: string) => {
   await expect(manufacturerHomePage.telephoneButton).toHaveAttribute('href', link);
 });
 
@@ -44,12 +44,12 @@ Then('the website link button should be visible', async ({ manufacturerHomePage 
 });
 
 // check the website link button link
-Then('the website link button should have the correct link', async ({ manufacturerHomePage }, link: string) => {
+Then('the website link button should have the correct link {string}', async ({ manufacturerHomePage }, link: string) => {
   await expect(manufacturerHomePage.companyWebsiteLink).toHaveAttribute('href', link);
 });
 
 // check the website link button text
-Then('the website link button should have the correct text', async ({ manufacturerHomePage }, text: string) => {
+Then('the website link button should have the correct text {string}', async ({ manufacturerHomePage }, text: string) => {
   await expect(manufacturerHomePage.companyWebsiteLink).toHaveText(text);
 });
 
