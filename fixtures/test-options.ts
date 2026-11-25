@@ -42,6 +42,15 @@ export const test = base.extend<Fixtures>({
   },
 
   // ==========================================================================
+  // SESSION
+  // scenarios tagged @signed-out start with an empty session instead of the saved sign-in
+  // $tags is empty in non-bdd specs, so they keep the project's storageState (or their own test.use)
+  // ==========================================================================
+  storageState: async ({ $tags, storageState }, use) => {
+    await use($tags.includes('@signed-out') ? { cookies: [], origins: [] } : storageState);
+  },
+
+  // ==========================================================================
   // POPUP HANDLERS
   // auto fixtures, so they run for every test without being asked for
   // the popups appear after a random delay, so a handler dismisses them whenever they show up

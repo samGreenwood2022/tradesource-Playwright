@@ -74,8 +74,6 @@ Then('the contact manufacturer button should have the correct text {string}', as
 
 // check clicking the contact manufacturer button opens the sign in modal
 Then('clicking the contact manufacturer button will open the sign in modal', async ({ manufacturerHomePage }) => {
-  test.use({ storageState: { cookies: [], origins: [] } });
-
   await manufacturerHomePage.contactManufacturerButton.click();
   await expect(manufacturerHomePage.signInRequiredModal).toBeVisible();
 }); 

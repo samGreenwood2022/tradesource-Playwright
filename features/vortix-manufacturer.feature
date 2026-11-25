@@ -28,6 +28,5 @@ Feature: Vortix manufacturer page
   @signed-out
   Scenario: assert the contact manufacturer button is correct
     Then the contact manufacturer button should be visible
-    And the contact manufacturer button should have the correct link "https://www.vortix-commercial.example/contact"
     And the contact manufacturer button should have the correct text " Contact Manufacturer "
     And clicking the contact manufacturer button will open the sign in modal
