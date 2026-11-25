@@ -57,3 +57,25 @@ Then('the website link button should have the correct text {string}', async ({ m
 Then('the website link button should open the website in a new tab', async ({ manufacturerHomePage }) => {
   await expect(manufacturerHomePage.companyWebsiteLink).toHaveAttribute('target', '_blank');
 });
+
+// check the contact manufacturer button visibility
+Then('the contact manufacturer button should be visible', async ({ manufacturerHomePage }) => {
+  await expect(manufacturerHomePage.contactManufacturerButton).toBeVisible();
+});
+// check the contact manufacturer button link
+Then('the contact manufacturer button should have the correct link {string}', async ({ manufacturerHomePage }, link: string) => {
+  await expect(manufacturerHomePage.contactManufacturerButton).toHaveAttribute('href', link);
+});
+
+// check the contact manufacturer button text
+Then('the contact manufacturer button should have the correct text {string}', async ({ manufacturerHomePage }, text: string) => {
+  await expect(manufacturerHomePage.contactManufacturerButton).toHaveText(text);
+});
+
+// check clicking the contact manufacturer button opens the sign in modal
+Then('clicking the contact manufacturer button will open the sign in modal', async ({ manufacturerHomePage }) => {
+  test.use({ storageState: { cookies: [], origins: [] } });
+
+  await manufacturerHomePage.contactManufacturerButton.click();
+  await expect(manufacturerHomePage.signInRequiredModal).toBeVisible();
+}); 
