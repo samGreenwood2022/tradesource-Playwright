@@ -1,3 +1,13 @@
+#            .-''''''-.
+#         .'  .-''''-.  '.
+#        /  .'  o  o  '.  \
+#       |  /  o      o  \  |
+#       | |  o   ()   o  | |
+#       |  \  o      o  /  |
+#        \  '.  o  o  .'  /
+#         '.  '-....-'  .'
+#            '-......-'
+#
 # This feature file contains tests for the Vortix manufacturer page
 Feature: Vortix manufacturer page
 
